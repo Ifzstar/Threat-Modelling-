@@ -30,23 +30,6 @@ flowchart LR
     H[Command and Control] -->|Issue commands| L
     H[Actions on Objectives] -->|Steal sensitive data| M
 
-React
-
-Reply
-
-
-
-
-
-
-
-
-
-
-
-
-Message main
-
 
 
 
