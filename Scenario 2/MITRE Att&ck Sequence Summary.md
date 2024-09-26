@@ -40,32 +40,25 @@ To mitigate the effects of this attack, ShopNow can implement several controls, 
 
 ```mermaid
 flowchart TD
-    style Reconnaissance fill:#F4D03F,stroke:#000,stroke-width:2px
-    style Weaponization fill:#F5B041,stroke:#000,stroke-width:2px
-    style Delivery fill:#EB984E,stroke:#000,stroke-width:2px
-    style Exploitation fill:#E59866,stroke:#000,stroke-width:2px
-    style Installation fill:#DC7633,stroke:#000,stroke-width:2px
-    style Command_Control fill:#CA6F1E,stroke:#000,stroke-width:2px
-    style Actions_Objectives fill:#BA4A00,stroke:#000,stroke-width:2px
-    style MITRE fill:#85C1E9,stroke:#000,stroke-width:2px
-    style Controls fill:#82E0AA,stroke:#000,stroke-width:2px
-    Reconnaissance[Reconnaissance] -->|Identify ShopNow| Weaponization[Weaponization]
-    Weaponization[Weaponization] -->|Craft exploit for known vulnerabilities| Delivery[Delivery]
-    Delivery[Delivery] -->|Deploy phishing campaign targeting app users| Exploitation[Exploitation]
-    Exploitation[Exploitation] -->|Trick users into downloading malware| Installation[Installation]
-    Installation[Installation] -->|Gain access to app backend| Command_Control[Command and Control]
-    Command_Control[Command and Control] -->|Establish communication with C&C server| Actions_Objectives[Actions on Objectives]
-    Actions_Objectives[Actions on Objectives] -->|Steal sensitive health data| Actions_Objectives[Actions on Objectives]
-    Actions_Objectives[Actions on Objectives] -->|Manipulate patient records| Actions_Objectives[Actions on Objectives]
-    subgraph MITRE_Attack[MITRE ATT&CK Techniques]
-    style MITRE fill:#85C1E9,stroke:#000,stroke-width:2px
-    Delivery -->|T1566.001 - Phishing| MITRE
-    Exploitation -->|T1190 - Exploit Public-Facing Application| MITRE
-    Exploitation -->|T1059.003 - Command and Scripting Interpreter| MITRE
-    Installation -->|T1106 - Execution through API| MITRE
-    Command_Control -->|T1102 - Web Service| MITRE
-    Command_Control -->|T1105 - Ingress Tool Transfer| MITRE
-    Actions_Objectives -->|T1136 - Create Account| MITRE
-    Actions_Objectives -->|T1574 - Hijack Execution Flow| MITRE
-    Actions_Objectives -->|T1565.001 - Data Manipulation| MITRE
+    subgraph MITRE ATT&CK Techniques
+        A[Reconnaissance] --> B[Resource Development]
+        B --> C[Initial Access]
+        C --> D[Execution]
+        D --> E[Persistence]
+        E --> F[Defense Evasion]
+        F --> G[Impact]
     end
+    A --> A1["Gather Target Information (T1592)"]
+    A1 --> A2["Identify Review System Vulnerabilities"]
+    B --> B1["Develop AI Tools (T1587)"]
+    B1 --> B2["Create Fake User Accounts (T1585)"]
+    C --> C1["Access Review System (T1078)"]
+    C1 --> C2["Submit Initial Reviews"]
+    D --> D1["AI-Generated Review Submission (T1059.007)"]
+    D1 --> D2["Automated Fake Review Flood"]
+    E --> E1["Maintain Fake Accounts (T1071)"]
+    E1 --> E2["Rotate Review Submission IPs"]
+    F --> F1["Bypass Review Filters (T1070)"]
+    F1 --> F2["Sophisticated AI Content Generation"]
+    G --> G1["Manipulate Product Ratings (T1491)"]
+    G1 --> G2["Damage to Reputation and Sales"]
