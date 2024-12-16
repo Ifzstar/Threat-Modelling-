@@ -1,71 +1,110 @@
 # Summary MITRE ATT&CK Sequence
-The attack involves using AI to generate fake reviews and flood an e-commerce platform's review system. The objective is to manipulate product ratings, damage reputation, and influence customer behavior. This attack leverages several phases from the MITRE ATT&CK framework, from reconnaissance to impact.
+The attack involves utilizing AI tools to craft highly convincing phishing emails targeting administrative users. The objective is to compromise admin credentials to gain unauthorized access to critical systems within a web-facing ShopNow application. The attack follows multiple phases from reconnaissance to impact, leveraging AI to bypass conventional phishing filters.
 
 # Attack Description
-The attacker uses AI-based tools to generate large volumes of fake reviews that are posted to the platform's review section. The reviews bypass basic detection filters and moderation systems, leading to misleading ratings and reputational damage. The attacker maintains persistence by continuously submitting new reviews from multiple accounts over time.
-
+Using AI-generated phishing content, the attacker creates realistic, targeted emails aimed at ShopNow's administrative users. The phishing emails successfully bypass traditional email security systems by mimicking internal communications and incorporating relevant themes such as system updates, security alerts, or payment processing issues. Once credentials are harvested, the attacker gains unauthorized access to critical backend systems.
 ## Stages of the Attack
 
 ### Origins
-The attack originates from an adversary who has acquired AI tools capable of generating human-like fake reviews. These tools allow the attacker to create an automated flood of reviews, taking advantage of weak moderation systems in the e-commerce platform, ShopNow.
+The attacker utilizes advanced AI tools capable of generating highly convincing phishing emails. These tools allow the attacker to craft content that closely resembles legitimate communication from ShopNow's IT or operations teams.
+
+
 
 ### Reconnaissance
-The attacker conducts research on ShopNow’s review system to identify potential vulnerabilities. This includes gathering information about the platform's review submission process, moderation filters, and detection algorithms. The attacker also collects data on product categories that could be most affected by fake reviews, targeting high-profile or popular items.
+The attacker conducts research to identify potential vulnerabilities and collect information about ShopNow's admin users, including:
+
+- Email addresses of IT admins and backend system managers
+- Organizational roles and hierarchy
+- Patterns in legitimate communication themes (e.g., order processing, server maintenance alerts)
+
+The attacker gathers information from public sources, leaked credentials, and even previous breaches.
+
+
 
 ### Resource Development
-The attacker develops or acquires AI tools specifically designed to generate realistic fake reviews at scale. Additionally, fake user accounts are created to submit these reviews, bypassing any simple detection mechanisms like account age or history.
+The attacker prepares for the phishing attack by:
+
+- Developing AI-powered phishing toolkits that generate human-like emails tailored to ShopNow’s systems
+- Creating malicious login portals that mimic ShopNow’s admin login page
+- Setting up email servers and domains to evade detection
+
 
 ### Initial Access
-Using the fake accounts, the attacker gains access to the review submission portal on ShopNow. The attacker tests the system with small batches of reviews to avoid detection, adjusting the strategy based on the platform's response.
+The attacker sends phishing emails to ShopNow's administrative users. Examples include:
+
+- Fake system update notifications requesting admins to log in for verification
+- Urgent security alerts warning about unauthorized access, prompting credential verification
+-  Payment processing issues asking for immediate admin intervention
+-  The phishing emails include links to malicious websites that mirror ShopNow’s login portal. Admin credentials entered on the fake portal are harvested.
 
 ### Execution
-In this phase, the attacker uses AI tools to generate and submit large volumes of fake reviews. The reviews are designed to appear human-like, with varied writing styles and content. The attacker floods the review system, overwhelming ShopNow's existing moderation mechanisms.
+Once an admin user interacts with the phishing email and submits their credentials, the attacker gains initial access to ShopNow's backend systems. This includes:
+
+- Accessing administrative dashboards
+- Extracting or modifying sensitive data
+- Identifying other potential vulnerabilities within ShopNow's infrastructure
+
 
 ### Persistence
-The attacker maintains a continuous presence on the platform by submitting new fake reviews at regular intervals. By using multiple accounts and varying submission patterns, the attacker avoids triggering detection alarms for repetitive behavior.
+The attacker maintains long-term access by:
+
+Deploying backdoors to monitor admin activity
+Creating hidden admin accounts to retain access even if credentials are changed
+Periodically verifying access and remaining undetected
+
+
 
 ### Defense Evasion
-The attacker employs AI-generated content that bypasses ShopNow’s basic moderation and AI detection systems. The reviews are tailored to mimic human behavior and sentiment, making it difficult for automated systems to flag them as fake.
+The phishing emails successfully bypass basic spam filters and email security systems by:
+
+Using AI to mimic internal organizational tone and formatting
+Avoiding known phishing signatures and content filters
+Varying subject lines, sender domains, and body text to avoid detection
+
 
 ### Impact
-The attacker’s actions result in significant impact on ShopNow. Product ratings are artificially inflated or deflated, misleading customers and damaging the platform’s credibility. This leads to a loss of customer trust and potential revenue decline as a result of manipulated product rankings and damaged reputation.
+The successful compromise of admin credentials leads to:
+
+1. Unauthorized access to ShopNow's backend systems and customer data
+2. Data exfiltration: Extraction of sensitive customer information (e.g., payment details, order history)
+3. Website downtime or backend disruptions caused by unauthorized configuration changes
+4. Reputational damage as customers lose trust due to compromised data or service interruptions
+
 
 ### Mitigation and Controls
-To mitigate the effects of this attack, ShopNow can implement several controls, including:
-- AI-powered review moderation systems
-- CAPTCHA challenges for review submissions
-- Monitoring IP addresses and account behavior
-- Verified purchase-only reviews
-- Sentiment analysis for detecting review manipulation
+To mitigate this type of attack, ShopNow can implement the following controls:
+
+- AI-Powered Email Security: Deploy tools capable of detecting AI-generated phishing content.
+- Multi-Factor Authentication (MFA): Enforce MFA for all admin accounts to prevent unauthorized access, even if credentials are compromised.
+- Verified Domains and DNS Controls: Use DMARC, SPF, and DKIM protocols to validate email authenticity.
+- Phishing Awareness Training: Conduct regular simulations and training sessions to educate employees on recognizing suspicious emails.
+- URL and Content Filtering: Monitor and block links to malicious domains and external login pages.
+- Continuous Monitoring: Implement behavior analytics and logging to detect unusual activity on admin accounts.
 
 ```mermaid
 flowchart TD
     style Reconnaissance fill:#F4D03F,stroke:#000,stroke-width:2px
-    style Weaponization fill:#F5B041,stroke:#000,stroke-width:2px
-    style Delivery fill:#EB984E,stroke:#000,stroke-width:2px
-    style Exploitation fill:#E59866,stroke:#000,stroke-width:2px
-    style Installation fill:#DC7633,stroke:#000,stroke-width:2px
-    style Command_Control fill:#CA6F1E,stroke:#000,stroke-width:2px
-    style Actions_Objectives fill:#BA4A00,stroke:#000,stroke-width:2px
-    style MITRE fill:#85C1E9,stroke:#000,stroke-width:2px
+    style Resource_Development fill:#F5B041,stroke:#000,stroke-width:2px
+    style Initial_Access fill:#EB984E,stroke:#000,stroke-width:2px
+    style Execution fill:#E59866,stroke:#000,stroke-width:2px
+    style Persistence fill:#DC7633,stroke:#000,stroke-width:2px
+    style Defense_Evasion fill:#CA6F1E,stroke:#000,stroke-width:2px
+    style Impact fill:#BA4A00,stroke:#000,stroke-width:2px
     style Controls fill:#82E0AA,stroke:#000,stroke-width:2px
-    Reconnaissance[Reconnaissance] -->|Identify ShopNow| Weaponization[Weaponization]
-    Weaponization[Weaponization] -->|Craft exploit for known vulnerabilities| Delivery[Delivery]
-    Delivery[Delivery] -->|Deploy phishing campaign targeting app users| Exploitation[Exploitation]
-    Exploitation[Exploitation] -->|Trick users into downloading malware| Installation[Installation]
-    Installation[Installation] -->|Gain access to app backend| Command_Control[Command and Control]
-    Command_Control[Command and Control] -->|Establish communication with C&C server| Actions_Objectives[Actions on Objectives]
-    Actions_Objectives[Actions on Objectives] -->|Steal sensitive health data| Actions_Objectives[Actions on Objectives]
-    Actions_Objectives[Actions on Objectives] -->|Manipulate patient records| Actions_Objectives[Actions on Objectives]
-    subgraph MITRE_Attack[MITRE ATT&CK Techniques]
-    style MITRE fill:#85C1E9,stroke:#000,stroke-width:2px
-    Delivery -->|T1566.001 - Phishing| MITRE
-    Exploitation -->|T1190 - Exploit Public-Facing Application| MITRE
-    Exploitation -->|T1059.003 - Command and Scripting Interpreter| MITRE
-    Installation -->|T1106 - Execution through API| MITRE
-    Command_Control -->|T1102 - Web Service| MITRE
-    Command_Control -->|T1105 - Ingress Tool Transfer| MITRE
-    Actions_Objectives -->|T1136 - Create Account| MITRE
-    Actions_Objectives -->|T1574 - Hijack Execution Flow| MITRE
-    Actions_Objectives -->|T1565.001 - Data Manipulation| MITRE
+
+    Reconnaissance[Reconnaissance] -->|Identify admin users, collect emails| Resource_Development[Resource Development]
+    Resource_Development -->|Develop AI tools, fake login portals| Initial_Access[Initial Access]
+    Initial_Access -->|Send AI-generated phishing emails| Execution[Execution]
+    Execution -->|Steal admin credentials via fake portal| Persistence[Persistence]
+    Persistence -->|Deploy backdoors, create hidden accounts| Defense_Evasion[Defense Evasion]
+    Defense_Evasion -->|Bypass detection via AI-crafted content| Impact[Impact]
+    Impact -->|Data breach, reputational damage, backend disruption| Impact[Impact]
+
+    subgraph Controls[Mitigation and Controls]
+        MFA[Enforce MFA] --> EmailSecurity[AI-Powered Email Security]
+        EmailSecurity --> VerifiedDomains[Verified Domains & DNS Controls]
+        VerifiedDomains --> PhishingTraining[Phishing Awareness Training]
+        PhishingTraining --> Monitoring[Continuous Behavior Monitoring]
     end
+
+    Impact --> Controls
